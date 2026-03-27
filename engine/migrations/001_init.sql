@@ -1,0 +1,26 @@
+-- 001_init.sql
+CREATE TABLE IF NOT EXISTS frames (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  captured_at INTEGER NOT NULL,
+  snapshot_path TEXT,
+  app_name TEXT,
+  window_name TEXT,
+  device_name TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE IF NOT EXISTS ocr_text (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  frame_id INTEGER NOT NULL,
+  text TEXT NOT NULL,
+  FOREIGN KEY(frame_id) REFERENCES frames(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS image_embeddings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  frame_id INTEGER NOT NULL,
+  model_id TEXT NOT NULL,
+  dim INTEGER NOT NULL,
+  vector BLOB NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(frame_id) REFERENCES frames(id) ON DELETE CASCADE
+);

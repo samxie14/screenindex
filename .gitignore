@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# C++/CMake build artifacts
+engine/build/
+engine/.cache/
+
+# Generic C/C++ build outputs
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Test/binary outputs
+engine_tests
