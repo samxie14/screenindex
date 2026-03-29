@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+
 project(screenindex_engine LANGUAGES C CXX)
 
 # ---- Language (C++20) ----
@@ -7,21 +8,51 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if(APPLE)
+    enable_language(OBJCXX)
+    # SCScreenshotManager requires macOS 14+
+    if(NOT CMAKE_OSX_DEPLOYMENT_TARGET OR CMAKE_OSX_DEPLOYMENT_TARGET VERSION_LESS "14.0")
+        set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0" CACHE STRING "Minimum macOS version" FORCE)
+    endif()
+endif()
+
 # ---- Dependencies (third party) ----
 
-# SQLite amalgamation (vendored, no brew/system dependency)
 set(SQLITE_AMALG_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/sqlite)
 add_library(sqlite3_amalg STATIC ${SQLITE_AMALG_DIR}/sqlite3.c)
 target_include_directories(sqlite3_amalg PUBLIC ${SQLITE_AMALG_DIR})
 
 # ---- Engine library ----
-add_library(screenindex_engine STATIC
-    src/sqlite_connection.cpp
-    src/migrations.cpp
+set(ENGINE_SOURCES
+    src/database/sqlite_connection.cpp
+    src/database/migrations.cpp
+    src/screen/capture_service.cpp
 )
-target_include_directories(screenindex_engine PUBLIC include)
+
+if(APPLE)
+    list(APPEND ENGINE_SOURCES src/screen/capture_backend_macos.mm)
+else()
+    list(APPEND ENGINE_SOURCES src/screen/capture_backend_stub.cpp)
+endif()
+
+add_library(screenindex_engine STATIC ${ENGINE_SOURCES})
+
+target_include_directories(screenindex_engine PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
 target_link_libraries(screenindex_engine PUBLIC sqlite3_amalg)
 target_compile_features(screenindex_engine PUBLIC cxx_std_20)
+
+if(APPLE)
+    target_link_libraries(screenindex_engine PUBLIC
+        "-framework ScreenCaptureKit"
+        "-framework Foundation"
+        "-framework CoreGraphics"
+        "-framework ImageIO"
+        "-framework UniformTypeIdentifiers"
+    )
+endif()
 
 # ---- Tests ----
 if(BUILD_TESTING)

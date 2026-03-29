@@ -8,7 +8,7 @@
 
 #include <sstream>
 #include <stdexcept>
-#include <sqlite_connection.hpp>
+#include <database/sqlite_connection.hpp>
 
 #include <vector>
 
