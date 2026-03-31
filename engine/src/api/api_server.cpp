@@ -1,5 +1,6 @@
 #include "api/api_server.hpp"
 #include <iostream>
+#include "httplib.h"
 
 namespace screenindex {
 

@@ -42,6 +42,9 @@ target_include_directories(sqlite3_amalg PUBLIC ${SQLITE_AMALG_DIR})
 set(ENGINE_SOURCES
     src/database/sqlite_connection.cpp
     src/database/migrations.cpp
+    src/database/frame_repository.cpp
+    src/database/ocr_repository.cpp
+    src/database/embedding_repository.cpp
     src/screen/capture_service.cpp
 )
 
@@ -99,6 +102,7 @@ if(BUILD_TESTING)
         test/smoke_test.cpp
         test/sqlite_connection_test.cpp
         test/migrations_test.cpp
+        test/frame_repository_test.cpp
     )
     target_link_libraries(engine_tests PRIVATE GTest::gtest_main)
     target_link_libraries(engine_tests PRIVATE screenindex_engine)

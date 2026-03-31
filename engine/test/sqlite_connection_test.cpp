@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <sqlite_connection.hpp>
+#include "database/sqlite_connection.hpp"
 
 TEST(SqliteConnectionTest, OpenExecAndLastInsertRowid) {
     screenindex::SqliteConnection db;

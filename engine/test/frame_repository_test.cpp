@@ -1,7 +1,7 @@
-#include "sqlite_connection.hpp"
+#include "database/sqlite_connection.hpp"
 #include <gtest/gtest.h>
-#include <frame_repository.hpp>
-#include <migrations.hpp>
+#include "database/frame_repository.hpp"
+#include "database/migrations.hpp"
 #include <filesystem>
 #include <chrono>
 
@@ -67,9 +67,9 @@ TEST_F (FrameRepositoryTest, InsertFullMetadata_GetFrame_RoundTripsAllFields) {
     EXPECT_EQ(got->window_name, "Desktop 1" );
     EXPECT_EQ(got->device_name, "MacBook-Air" );
     EXPECT_EQ(got->storage_kind, "full");
-    EXPECT_EQ(got->delta_base_frame_id, NULL);
-    EXPECT_EQ(got->delta_patch_path, NULL);
-    EXPECT_EQ(got->duplicate_of_frame_id, NULL);
+    EXPECT_EQ(got->delta_base_frame_id, 0);
+    EXPECT_TRUE(got->delta_patch_path.empty());
+    EXPECT_EQ(got->duplicate_of_frame_id, 0);
 }
 
 TEST_F (FrameRepositoryTest, GetFrame_UnknownId_ReturnsNullopt) {

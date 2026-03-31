@@ -1,10 +1,16 @@
-ENGINE_SRC=screenindex/engine
+ENGINE_SRC=engine
 ENGINE_BUILD=build/engine
-configure:
+
+.PHONY: engine-configure engine-build engine-test engine-clean
+
+engine-configure:
 	cmake -S $(ENGINE_SRC) -B $(ENGINE_BUILD) -DBUILD_TESTING=ON
-build:
+
+engine-build:
 	cmake --build $(ENGINE_BUILD)
-test:
+
+engine-test:
 	ctest --test-dir $(ENGINE_BUILD) --output-on-failure
-clean:
+
+engine-clean:
 	rm -rf $(ENGINE_BUILD)

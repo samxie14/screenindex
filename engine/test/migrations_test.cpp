@@ -4,8 +4,8 @@
 #include <stdexcept>
 #include <string>
 
-#include <migrations.hpp>
-#include <sqlite_connection.hpp>
+#include "database/migrations.hpp"
+#include "database/sqlite_connection.hpp"
 
 namespace fs = std::filesystem;
 

@@ -1,3 +1,4 @@
+#include <optional>
 #include <screen/capture_service.hpp>
 #include <filesystem>
 
@@ -8,11 +9,11 @@ namespace screenindex {
 
     // For debugging
     std::optional<std::string> capture_once(MonitorId monitor_id, CaptureResult& out) {
-        return nullptr;
+        return std::nullopt;
     }
 
     std::optional<std::filesystem::path> capture_and_save_jpeg(MonitorId monitor_id, std::string& error) {
-        return nullptr;
+        return std::nullopt;
     }
 
 

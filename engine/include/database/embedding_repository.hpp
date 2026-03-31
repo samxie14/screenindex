@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include <string>
-#include <sqlite_connection.hpp>
+#include "sqlite_connection.hpp"
 
 namespace screenindex {
     struct EmbeddingRecord {
