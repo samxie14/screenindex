@@ -6,12 +6,12 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./src/renderer/src/test/setup.ts'],
-    include: ['src/renderer/src/**/*.{test,spec}.{ts,tsx}']
+    setupFiles: ['./src/renderer/test/setup.ts'],
+    include: ['src/renderer/**/*.{test,spec}.{ts,tsx}']
   },
   resolve: {
     alias: {
-      '@renderer': resolve(__dirname, 'src/renderer/src')
+      '@renderer': resolve(__dirname, 'src/renderer')
     }
   }
 })

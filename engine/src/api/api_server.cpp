@@ -7,11 +7,15 @@ namespace screenindex {
 int run_api_server(const ApiServerConfig& config) {
     httplib::Server server;
 
-    server.Get("/health", [](const httplib::Request&, httplib::Response& res) {
+    server.Get("/health", [](const httplib::Request& req, httplib::Response& res) {
 
     });
 
-    server.Get("/search", [](const httplib::Request&, httplib::Response& res) {
+    server.Get("/search", [](const httplib::Request& req, httplib::Response& res) {
+
+    });
+
+    server.Post("/capture", [](const httplib::Request& req, httplib::Response& res) {
 
     });
 

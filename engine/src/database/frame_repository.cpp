@@ -14,7 +14,6 @@ std::int64_t FrameRepository::insert_frame(const FrameInsert& req) {
 
 std::optional<FrameRecord> FrameRepository::get_frames(std::int64_t id){
     return std::nullopt;
-
 }
 
 std::vector<FrameRecord> FrameRepository::list_frames_in_time_range(
